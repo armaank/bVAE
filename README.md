@@ -1,4 +1,4 @@
 # bVAE
-$\beta$-VAE
+&beta -VAE
 
-replicating results from $\beta$VAE: Learning Basic Visual Concepts with a Constrained Variational Framework
+replicating results from &beta -VAE: Learning Basic Visual Concepts with a Constrained Variational Framework

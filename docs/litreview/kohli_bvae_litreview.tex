@@ -1,0 +1,54 @@
+\documentclass[justified,nobib]{tufte-handout}
+\usepackage{microtype}
+\usepackage[english]{babel}
+\usepackage{inputenc}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage[square,sort,comma,numbers]{natbib}
+\title{Lit. Review - CGML}
+\author{Armaan Kohli}
+\date{\today}
+\begin{document}
+\begin{fullwidth}
+\selectlanguage{English}
+{
+  \noindent\fontsize{12pt}{20pt}\selectfont\textbf{Literature Review - Computational Graphs for Machine Learning: Midterm Project}
+  \newline
+  \fontsize{12pt}{18pt}\selectfont
+  {Autumn 2019} \\
+  {ECE471}
+}
+\raggedright
+\raggedbottom
+\section{General Overview \& Purpose}
+\paragraph{} This literature review serves to summarize papers concerning so-called beta variational autoencoders ($\beta$-VAE). The goal is to understand the generative capabilities of variational autoencoders(VAE), first introduced by Kingma and Welling \cite{ae} , and how $\beta$-VAE, a model published by DeepMind \cite{bvae} \cite{bvae-dis},  improves the ability of the network to yield disentangled representations.  
+\\
+\noindent\hrulefill 
+\section{Paper 1}
+\textit{Title:} Auto-Encoding Variational Bayes  \cite{ae} \\
+\textit{Authors: }Kingma, Welling - 2014 \\
+\textit{Notes and Discussion:} \\
+\paragraph{} This is the paper that introduced the notion of a VAE. First, they show how to optimize a sampling process via the reparameterization trick. They then showed that intractable posterior inference can be made by fitting an approximate inference model using the proposed lower bound estimator. This varational lower bound forms the objective function. 
+\paragraph{} Effectively, each input datapoint $x$ produces a distribution over the possible values of a latent code $z$, viewed as an \textit{encoder}, and each code word $z$ produces a distribution over the possible corresponding values of $x$, forming a \textit{decoder}.   \\
+\noindent\hrulefill
+\section{Paper 2}
+\textit{Title:} $\beta$-VAE: Learning Basic Visual Concepts with a Constrained Variaitonal Framework  \cite{bvae} \\
+\textit{Authors: }Higgins, et.al- 2017 \\
+\textit{Notes and Discussion:}
+\paragraph{} This was the first paper released by DeepMind concerning $\beta$-VAEs. Their main contribution was to add a hyperparameter $\beta$ to the objective function discussed in \citep{ae}. This additional parameter allows for explicit tuning of the ability of the network to learn a disentangled representation. Effectively, increasing $\beta$ increases the latent channel capacity at the cost of reconstruction accuracy. $\beta$-VAE outperforms other generative models, both unsupervised (InfoGAN) and semi-supervised (DC-IGN), in terms of it's ability to learn disentangled factors. 
+\paragraph{} The authors don't go into great detail about the network architecture itself, nor do they explicitly justify why $\beta$-VAE outperforms other SOTA models beyond qualitative remarks about `disentanglement.' However, they go into far more detail in the companion paper released a year later, \citep{bvae-dis}    \\
+\clearpage
+\section{Paper 3}
+\textit{Title:} Understanding disentangling in  $\beta$-VAE  \cite{bvae-dis} \\
+\textit{Authors: }Burgess, et.al- 2018 \\
+\textit{Notes and Discussion:} \\
+\paragraph{} This paper, released by DeepMind a year later, takes the time to explain how and why $\beta$-VAE sets the SOTA for generative learning of disentangled representations. The authors define what they mean by a disentangled representation, and walk through the derivation of the objective function discussed in \citep{ae}. They then explain why  this hyper-parameter $\beta$ improves the network in terms of mutual information.
+\paragraph{} Effectively, the parameter $\beta$ finds latent components which make different contributions to the log-likelihood term of the objective function in \citep{ae}, and that latent components correspond to features that are qualitatively different. Furthermore, forcing a diagonal correlation matrix as part of the reparameterization trick also encourages the latent dimensions to align with generative factors. They then add an additional factor to the loss function to improve the effective `channel capacity', as it were, of the network, which in turn increases the models ability to generate disentangled features. They also present the network architecture in the appendix for both the encoder and decoder networks.    \\
+\noindent\hrulefill
+\bibliography{bib}{}
+\bibliographystyle{IEEEtran}
+\newpage
+
+
+\end{fullwidth}
+\end{document}

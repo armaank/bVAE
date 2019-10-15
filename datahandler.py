@@ -5,6 +5,7 @@ downloads and processs datasets for betaVAE experiments
 
 """
 import os
+# original_umask = os.umask(0)
 import subprocess
 import tarfile
 import glob
@@ -70,19 +71,19 @@ def getChairs(data_dir):
     }
     files = {"train": "chairs_64"}
     img_size = (1, 64, 64)
-    os.makedirs(os.path.join(data_dir, "/chairs"))
+    # os.makedirs((os.path.join(data_dir, "/chairs"), 0777)
     save_path = os.path.join(data_dir, "/chairs/chairs.tar")
     subprocess.check_call(["curl", urls["train"], "--output", save_path])
-    tar = tarfile.open(save_path)
-    tar.extractall(os.path.join(data_dir, "/chairs"))
-    tar.close()
-    os.rename(
-        os.path.join(os.path.join(data_dir, "/chairs"), "rendered_chairs"),
-        "chairs_train",
-    )
-    preprocess(
-        os.path.join("chairs_train", "*/*"), size=img_size[1:], center_crop=(400, 400)
-    )
+    # tar = tarfile.open(save_path)
+    # tar.extractall(os.path.join(data_dir, "/chairs"))
+    # tar.close()
+    # os.rename(
+    #     os.path.join(os.path.join(data_dir, "/chairs"), "rendered_chairs"),
+    #     "chairs_train",
+    # )
+    # preprocess(
+    #     os.path.join(data_dir, "/chairs","/chairs_train", "*/*"), size=img_size[1:], center_crop=(400, 400)
+    # )
 
 
 if __name__ == "__main__":

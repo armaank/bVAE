@@ -1,0 +1,26 @@
+docwatch
+push
+TODO
+.idea/
+# */output/
+*/build/
+# output/
+slurm/
+debug/
+.cache/
+# scripts/
+__pycache__/
+*.pyc
+*.ipynb_checkpoints
+*.log
+*.txt
+*.gz
+*.egg-info
+*.so
+*.swp
+*.tif
+*.tiff
+*.bmp
+*.png
+*.jpeg
+*.jpg

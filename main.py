@@ -1,5 +1,8 @@
-import numpy as np
-import os
+"""
+Main.py
 
-my_str = "hello world"
-print(my_str)
+
+
+settings: ADAM optimizer wiht lr of 5e-4
+
+"""

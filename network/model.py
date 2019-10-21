@@ -7,6 +7,7 @@ contains network architecture for beta vae, as described in the appendix of [2]
 import torch
 import torch.nn as nn
 from torch.autograd import Variable
+import torch.nn.init as init
 
 
 def reparam(mu, logvar):
@@ -74,20 +75,38 @@ class betaVAE(nn.Module):
             nn.ConvTranspose2d(32, nchan, 4, 2, 1),
         )
 
-        def forward(self, x):
-            dist = self.encode(x)
-            mu = dist[:, : self.z_dim]
-            logvar = dist[:, self.z_dim :]
-            z = reparam(mu, logvar)
-            x_recon = self.decode(z)
+        self.weight_init()
 
-            return x_recon, mu, logvar
+    def forward(self, x):
+        dist = self.encode(x)
+        mu = dist[:, : self.z_dim]
+        logvar = dist[:, self.z_dim :]
+        z = reparam(mu, logvar)
+        x_recon = self.decode(z)
 
-        def encode(self, x):
-            return self.encoder(x)
+        return x_recon, mu, logvar
 
-        def decode(self, z):
-            return self.decoder(z)
+    def encode(self, x):
+        return self.encoder(x)
+
+    def decode(self, z):
+        return self.decoder(z)
+
+    def weight_init(self):
+        for block in self._modules:
+            for m in self._modules[block]:
+                kaiming_init(m)
+
+
+def kaiming_init(m):
+    if isinstance(m, (nn.Linear, nn.Conv2d)):
+        init.kaiming_normal(m.weight)
+        if m.bias is not None:
+            m.bias.data.fill_(0)
+    elif isinstance(m, (nn.BatchNorm1d, nn.BatchNorm2d)):
+        m.weight.data.fill_(1)
+        if m.bias is not None:
+            m.bias.data.fill_(0)
 
 
 if __name__ == "__main__":

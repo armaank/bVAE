@@ -14,7 +14,7 @@ from torch.autograd import Variable
 from torchvision.utils import make_grid, save_image
 
 
-def reconstructionloss(x, x_recon, dist):
+def r_loss(x, x_recon, dist):
 
     batch_size = x.size(0)
 
@@ -29,7 +29,7 @@ def reconstructionloss(x, x_recon, dist):
     return recon_loss
 
 
-def kl_divergence(mu, logvar):
+def kl_div(mu, logvar):
 
     # batch_size = mu.size(0)
 

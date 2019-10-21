@@ -40,7 +40,7 @@ class betaVAE(nn.Module):
     """
 
     def __init__(self, z_dim=10, nchan=1):
-        super(betaVAE, self).__init()
+        super(betaVAE, self).__init__()
         self.z_dim = z_dim
 
         self.encoder = nn.Sequential(

@@ -10,7 +10,7 @@ import os
 import numpy as np
 import torch
 
-from torch.utils.data import Dataset, Dataloader
+from torch.utils.data import Dataset, DataLoader
 from torchvision.datasets import ImageFolder
 from torchvision import transforms
 
@@ -59,7 +59,7 @@ def getDataset(args):
     data_set = bvaeImageFolder
 
     train_data = data_set(**train_dict)
-    data_loader = Dataloader(
+    data_loader = DataLoader(
         train_data, batch_size=batch_size, shuffle=True, pin_memory=True, drop_last=True
     )
 

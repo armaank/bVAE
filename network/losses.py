@@ -8,7 +8,7 @@ import os
 
 import torch
 
-import toch.optim as optim
+import torch.optim as optim
 import torch.nn.functional as F
 from torch.autograd import Variable
 from torchvision.utils import make_grid, save_image

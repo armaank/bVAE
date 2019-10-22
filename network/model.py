@@ -23,6 +23,11 @@ def reparam(mu, logvar):
 
 
 class View(nn.Module):
+    """View
+    acts like tf/np reshape
+
+    """
+
     def __init__(self, size):
         super(View, self).__init__()
         self.size = size
@@ -98,7 +103,7 @@ class betaVAE(nn.Module):
                 kaiming_init(m)
 
 
-def kaiming_init(m):
+def kaiming_init(m):  # alter init?
     if isinstance(m, (nn.Linear, nn.Conv2d)):
         init.kaiming_normal(m.weight)
         if m.bias is not None:

@@ -43,4 +43,5 @@ class trainer(object):
         self.data_loader = getDataset(args)  ## change, args
 
     def train(self):
-        
+
+        pass

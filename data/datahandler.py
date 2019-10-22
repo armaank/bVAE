@@ -3,6 +3,11 @@ datahandler.py
 
 handles all of the preprocessing and orginizaiton of all datasets
 
+
+change batchsize?
+change num_workers? 
+
+
 """
 
 import os

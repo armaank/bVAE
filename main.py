@@ -51,7 +51,13 @@ if __name__ == "__main__":
     parser.add_argument("--output_dir", default="outputs", type=str, help="output dir")
 
     parser.add_argument(
-        "--save_steps",
+        "--data_out",
+        default="3dchairs_run1",
+        type=str,
+        help="folder to hold output images",
+    )
+    parser.add_argument(
+        "--save_step",
         default=100,
         type=int,
         help="num of grad steps before checkpoints are saved",

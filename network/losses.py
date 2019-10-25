@@ -14,17 +14,11 @@ from torch.autograd import Variable
 from torchvision.utils import make_grid, save_image
 
 
-def r_loss(x, x_recon, dist):
+def r_loss(x, x_recon):
 
     batch_size = x.size(0)
-
-    if dist == "bernoulli":
-        recon_loss = F.binary_cross_entropy_with_logits(
-            x_recon, x, size_average=False
-        ).div(batch_size)
-    elif dist == "gaussian":
-        x_recon = F.sigmoid(x_recon)
-        recon_loss = F.mse_loss(x_recon, x, size_average=False).div(batch_size)
+    x_recon = F.sigmoid(x_recon)
+    recon_loss = F.mse_loss(x_recon, x, size_average=False).div(batch_size)
 
     return recon_loss
 
@@ -40,7 +34,5 @@ def kl_div(mu, logvar):
 
     klds = -0.5 * (1 + logvar - mu.pow(2) - logvar.exp())
     total_kld = klds.sum(1).mean(0, True)
-    dimension_wise_kld = klds.mean(0)
-    mean_kld = klds.mean(1).mean(0, True)
 
-    return total_kld, dimension_wise_kld, mean_kld
+    return total_kld

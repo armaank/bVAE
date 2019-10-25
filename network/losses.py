@@ -1,7 +1,7 @@
 """
 losses.py
 
-methods used to form the objective function described in [1]
+methods used to form the objective function described in [2]
 
 """
 import os

@@ -11,8 +11,7 @@ import torch.nn.init as init
 
 
 def reparam(mu, logvar):
-    """reparametization trick
-
+    """reparametization 'trick'
 
     """
 

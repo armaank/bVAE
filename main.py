@@ -1,17 +1,12 @@
 """
-Main.py
-
-
-settings: ADAM optimizer wiht lr of 5e-4, beta1 .9, beta2 .999
-batch_size=64
-z_dim =  16
-beta = 4 (according to appendix, but 250 according to fig)
-max_iter = 1e6
-
-hyper params:
-adam lr, adam beta1, adam beta2, batch_size, z_dim, beta, niter
+main.py
 
 todo, enable cuda by default, look into visdom? 
+
+defaults as is are set for 3d chairs
+
+params for 3d chairs: lr=1e-4, beta1=.9, beta2=.999, batch_size=64, z_dim=16, max_iter=1e6, beta=5
+params for celebA: lr=1e-4, beta1=.9, beta2=.999, batch_size=64, z_dim=32, max_iter=1e6, beta=250
 
 """
 import argparse
@@ -40,33 +35,25 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="betaVAE")
 
-    parser.add_argument(
-        "--train", default=1, type=int, help="train or eval latent space"
-    )  ## bool value for training
+    parser.add_argument("--train", default=True, type=bool, help="train or eval")
     parser.add_argument("--seed", default=1, type=int, help="random seed")
+    parser.add_argument("--cuda", default=True, type=bool, help="enable cuda")
     parser.add_argument(
-        "--max_iter", default=1e6, type=float, help="maximum training iteration"
+        "--max_iter", default=1e6, type=float, help="maximum number of training steps"
     )
     parser.add_argument("--batch_size", default=64, type=int, help="batch size")
 
     parser.add_argument(
-        "--z_dim", default=10, type=int, help="dimension of the representation z"
+        "--z_dim", default=16, type=int, help="dimension of the latent space"
     )
+    parser.add_argument("--beta", default=5, type=float, help="beta parameter from [2]")
+    parser.add_argument("--lr", default=1e-4, type=float, help="ADAM learning rate")
+    parser.add_argument("--beta1", default=0.9, type=float, help="ADAM beta1")
+    parser.add_argument("--beta2", default=0.999, type=float, help="ADAM beta2")
     parser.add_argument(
-        "--beta",
-        default=250,
-        type=float,
-        help="beta parameter for KL-term in original beta-VAE",
+        "--data_dir", default="data", type=str, help="dataset directory"
     )
-    parser.add_argument("--lr", default=5e-4, type=float, help="learning rate")
-    parser.add_argument("--beta1", default=0.9, type=float, help="Adam optimizer beta1")
-    parser.add_argument(
-        "--beta2", default=0.999, type=float, help="Adam optimizer beta2"
-    )
-    parser.add_argument(
-        "--dset_dir", default="data", type=str, help="dataset directory"
-    )
-    parser.add_argument("--dataset", default="CelebA", type=str, help="dataset name")
+    parser.add_argument("--dataset", default="3dchairs", type=str, help="dataset name")
     parser.add_argument("--image_size", default=64, type=int, help="image size")
     parser.add_argument(
         "--output_dir", default="outputs", type=str, help="output directory"

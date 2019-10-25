@@ -3,7 +3,7 @@ train.py
 
 script used to train the network
 
-REMOVE dist option, since alwats guassian
+REMOVE dist option, since alwyays guassian
 
 """
 import os
@@ -23,6 +23,7 @@ from network.losses import r_loss, kl_div
 class trainer(object):
     def __init__(self, args):
 
+        # argument gathering
         self.max_iter = args.max_iter
         self.global_iter = 0
         self.z_dim = args.z_dim

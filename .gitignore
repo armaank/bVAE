@@ -4,8 +4,8 @@ TODO
 .idea/
 # */output/
 */build/
-!outputs/*.jpg
-!outputs/*.jpeg
+# !outputs/*.jpg
+# !outputs/*.jpeg
 slurm/
 debug/
 .cache/
@@ -22,6 +22,6 @@ __pycache__/
 *.tiff
 *.bmp
 *.png
-*.jpeg
-*.jpg
+/data/3DChairs/*
+/data/CelebA/*
 *.tar

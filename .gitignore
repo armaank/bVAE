@@ -13,7 +13,6 @@ __pycache__/
 *.pyc
 *.ipynb_checkpoints
 *.log
-*.txt
 *.gz
 *.egg-info
 *.so

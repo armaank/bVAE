@@ -4,7 +4,7 @@ TODO
 .idea/
 # */output/
 */build/
-# output/
+!outputs/*
 slurm/
 debug/
 .cache/

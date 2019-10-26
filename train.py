@@ -26,6 +26,11 @@ def cuda(tensor, uses_cuda):
 
 
 class Trainer(object):
+    """
+
+
+    """
+
     def __init__(self, args):
 
         # net_inst = betaVAE
@@ -43,10 +48,10 @@ class Trainer(object):
         self.beta1 = args.beta1
         self.beta2 = args.beta2
 
-        self.win_recon = None
-        self.win_kld = None
-        self.win_mu = None
-        self.win_var = None
+        self.net = cuda(betaVAE(self.z_dim, self.nchan), self.use_cuda)
+        self.optim = optim.Adam(
+            self.net.parameters(), lr=self.lr, betas=(self.beta1, self.beta2)
+        )
 
         self.ckpt_dir = os.path.join(args.ckpt_dir, args.data_out)
         if not os.path.exists(self.ckpt_dir):
@@ -54,6 +59,7 @@ class Trainer(object):
         self.ckpt_name = args.ckpt_name
         if self.ckpt_name is not None:
             self.load_checkpoint(self.ckpt_name)
+
         self.save_output = args.save_output
         self.output_dir = os.path.join(args.output_dir, args.data_out)
         if not os.path.exists(self.output_dir):
@@ -61,11 +67,6 @@ class Trainer(object):
 
         self.save_step = args.save_step
         self.data_loader = getDataset(args)
-
-        self.net = cuda(betaVAE(self.z_dim, self.nchan), self.use_cuda)
-        self.optim = optim.Adam(
-            self.net.parameters(), lr=self.lr, betas=(self.beta1, self.beta2)
-        )
 
         self.data_loader = getDataset(args)  ## change, args
 
@@ -105,13 +106,7 @@ class Trainer(object):
                         )
                     )
 
-                    # var = logvar.exp().mean(0).data
-                    # var_str = ""
-                    # for j, var_j in enumerate(var):
-                    #     var_str += "var{}:{:.4f} ".format(j + 1, var_j)
-                    # bar.write(var_str)
-
-                    if self.save_output:
+                    if self.save_output:  # can probably remove
                         self.traverse()
 
                 if self.global_iter % self.save_step == 0:
@@ -188,15 +183,9 @@ class Trainer(object):
     def save_checkpoint(self, filename, silent=True):
         model_states = {"net": self.net.state_dict()}
         optim_states = {"optim": self.optim.state_dict()}
-        win_states = {
-            "recon": self.win_recon,
-            "kld": self.win_kld,
-            "mu": self.win_mu,
-            "var": self.win_var,
-        }
+
         states = {
             "iter": self.global_iter,
-            "win_states": win_states,
             "model_states": model_states,
             "optim_states": optim_states,
         }
@@ -214,10 +203,7 @@ class Trainer(object):
         if os.path.isfile(file_path):
             checkpoint = torch.load(file_path)
             self.global_iter = checkpoint["iter"]
-            self.win_recon = checkpoint["win_states"]["recon"]
-            self.win_kld = checkpoint["win_states"]["kld"]
-            self.win_var = checkpoint["win_states"]["var"]
-            self.win_mu = checkpoint["win_states"]["mu"]
+
             self.net.load_state_dict(checkpoint["model_states"]["net"])
             self.optim.load_state_dict(checkpoint["optim_states"]["optim"])
             print(
@@ -227,3 +213,4 @@ class Trainer(object):
             )
         else:
             print("=> no checkpoint found at '{}'".format(file_path))
+

@@ -14,7 +14,6 @@ __pycache__/
 *.pyc
 *.ipynb_checkpoints
 *.log
-*.gz
 *.egg-info
 *.so
 *.swp
@@ -24,4 +23,3 @@ __pycache__/
 *.png
 /data/3DChairs/*
 /data/CelebA/*
-*.tar

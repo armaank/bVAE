@@ -68,7 +68,7 @@ class Trainer(object):
         self.save_step = args.save_step
         self.data_loader = getDataset(args)
 
-        self.data_loader = getDataset(args)  ## change, args
+        # self.data_loader = getDataset(args)  ## change, args
 
     def network_mode(self, train):
         if train:

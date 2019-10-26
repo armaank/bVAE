@@ -46,7 +46,7 @@ def getDataset(args):
     if name.lower() == "3dchairs":
         root = os.path.join(data_dir, "3DChairs")
 
-    elif name.lower == "celeba":
+    else:
         root = os.path.join(data_dir, "CelebA")
 
     transform = transforms.Compose(
@@ -83,7 +83,4 @@ if __name__ == "__main__":
     )
 
     images1 = iter(loader).next()
-    import ipdb
-
-    ipdb.set_trace()
 

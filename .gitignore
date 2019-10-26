@@ -14,7 +14,6 @@ __pycache__/
 *.pyc
 *.ipynb_checkpoints
 *.log
-*.gz
 *.egg-info
 *.so
 *.swp
@@ -22,6 +21,8 @@ __pycache__/
 *.tiff
 *.bmp
 *.png
-/data/3DChairs/*
-/data/CelebA/*
 *.tar
+*.gz
+*.xz
+/data/3DChairs/*
+/data/CelebA/img_align_celeba/*

@@ -1,12 +1,7 @@
 """
 main.py
 
-todo, enable cuda by default, look into visdom? 
-
 defaults as is are set for 3d chairs
-
-params for 3d chairs: lr=1e-4, beta1=.9, beta2=.999, batch_size=64, z_dim=16, max_iter=1e6, beta=5
-params for celebA: lr=1e-4, beta1=.9, beta2=.999, batch_size=64, z_dim=32, max_iter=1e6, beta=250
 
 """
 import argparse
@@ -21,14 +16,19 @@ torch.backends.cudnn.benchmark = True
 
 
 def main(args):
+    """main
+
+    calls Trainer to train an instance of a beta VAE and generate outputs
+    inputs are the passed in cli args
+    
+    """
 
     net = Trainer(args)
 
     if args.train:
         net.train()
     else:
-        net.eval()  # remove?
-    pass
+        pass
 
 
 if __name__ == "__main__":
@@ -48,7 +48,6 @@ if __name__ == "__main__":
     parser.add_argument("--data_dir", default="data", type=str, help="data directory")
     parser.add_argument("--dataset", default="3dchairs", type=str, help="dataset name")
     parser.add_argument("--image_size", default=64, type=int, help="image size")
-    parser.add_argument("--save_output", default=True, type=bool, help="save output")
     parser.add_argument("--output_dir", default="outputs", type=str, help="output dir")
     parser.add_argument("--n_workers", default=2, type=int, help="dataloader n_workers")
     parser.add_argument(

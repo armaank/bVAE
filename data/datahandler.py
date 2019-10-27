@@ -1,12 +1,7 @@
 """
 datahandler.py
 
-handles all of the preprocessing and orginizaiton of all datasets
-
-
-change batchsize?
-change num_workers? 
-
+manages preprocessing and orginizaiton of all datasets
 
 """
 
@@ -21,6 +16,12 @@ from torchvision import transforms
 
 
 class bvaeImageFolder(ImageFolder):
+    """bvaeImageFolder
+    
+    class to manage indexing into datasets
+
+    """
+
     def __init__(self, root, transform=None):
         super(bvaeImageFolder, self).__init__(root, transform)
 
@@ -34,6 +35,13 @@ class bvaeImageFolder(ImageFolder):
 
 
 def getDataset(args):
+    """getDataset
+    
+    manages datasets for trainer.py
+    mostly path and directory management as well as some basic preprocessing
+    inputs: cli args passed from main.py
+
+    """
 
     name = args.dataset
     data_dir = args.data_dir

@@ -12,6 +12,8 @@ import torch.nn.init as init
 
 def reparam(mu, logvar):
     """reparametization 'trick'
+    
+    reparametizes 
 
     """
 
@@ -38,9 +40,7 @@ class View(nn.Module):
 class betaVAE(nn.Module):
     """betaVAE
 
-    betaVAE class
-    defines network architecture and initilization states
-
+    class used to setup the betaVAE architecture 
     """
 
     def __init__(self, z_dim=10, nchan=1):
@@ -79,8 +79,6 @@ class betaVAE(nn.Module):
             nn.ConvTranspose2d(32, nchan, 4, 2, 1),
         )
 
-        self.weight_init()
-
     def forward(self, x):
         dist = self.encode(x)
         mu = dist[:, : self.z_dim]
@@ -95,22 +93,6 @@ class betaVAE(nn.Module):
 
     def decode(self, z):
         return self.decoder(z)
-
-    def weight_init(self):
-        for block in self._modules:
-            for m in self._modules[block]:
-                kaiming_init(m)
-
-
-def kaiming_init(m):  # alter init?
-    if isinstance(m, (nn.Linear, nn.Conv2d)):
-        init.kaiming_normal(m.weight)
-        if m.bias is not None:
-            m.bias.data.fill_(0)
-    elif isinstance(m, (nn.BatchNorm1d, nn.BatchNorm2d)):
-        m.weight.data.fill_(1)
-        if m.bias is not None:
-            m.bias.data.fill_(0)
 
 
 if __name__ == "__main__":

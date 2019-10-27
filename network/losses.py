@@ -15,17 +15,22 @@ from torchvision.utils import make_grid, save_image
 
 
 def r_loss(x, x_recon):
+    """r_loss
+
+    """
 
     batch_size = x.size(0)
-    x_recon = F.sigmoid(x_recon)
+    x_recon = torch.sigmoid(x_recon)
     recon_loss = F.mse_loss(x_recon, x, size_average=False).div(batch_size)
 
     return recon_loss
 
 
 def kl_div(mu, logvar):
+    """kl_div
 
-    # batch_size = mu.size(0)
+
+    """
 
     if mu.data.ndimension() == 4:
         mu = mu.view(mu.size(0), mu.size(1))

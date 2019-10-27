@@ -1,9 +1,7 @@
 """
 train.py
 
-script used to train the network
-
-REMOVE dist option, since alwyays guassian
+script used to train the network and generate outputs
 
 """
 import os
@@ -26,14 +24,15 @@ def cuda(tensor, uses_cuda):
 
 
 class Trainer(object):
-    """
-
+    """Trainer
+    
+    Trainer class used to instantiate a betaVAE, 
+    train it and generate outputs from the latent spcae
 
     """
 
     def __init__(self, args):
 
-        # net_inst = betaVAE
         # argument gathering
         self.use_cuda = args.cuda and torch.cuda.is_available()
         self.n_iter = args.n_iter
@@ -60,7 +59,6 @@ class Trainer(object):
         if self.ckpt_name is not None:
             self.load_checkpoint(self.ckpt_name)
 
-        self.save_output = args.save_output
         self.output_dir = os.path.join(args.output_dir, args.data_out)
         if not os.path.exists(self.output_dir):
             os.makedirs(self.output_dir, exist_ok=True)
@@ -68,24 +66,20 @@ class Trainer(object):
         self.save_step = args.save_step
         self.data_loader = getDataset(args)
 
-        # self.data_loader = getDataset(args)  ## change, args
-
-    def network_mode(self, train):
-        if train:
-            self.net.train()
-        else:
-            self.net.eval()
-
     def train(self):
+        """train
 
-        self.network_mode(train=True)
+        trains an instance of a betaVAE
+
+        """
+
+        self.net.train()
+
         bar = tqdm(total=self.n_iter)
         bar.update(self.global_iter)
         out = False
-        # for _ in range(0, int(self.n_iter)):
         while not out:
             for x in self.data_loader:
-                # print(type(x))
                 self.global_iter += 1
                 bar.update(1)
                 x = Variable(cuda(x, self.use_cuda))
@@ -106,8 +100,7 @@ class Trainer(object):
                         )
                     )
 
-                    if self.save_output:  # can probably remove
-                        self.traverse()
+                    self.traverse_latent()
 
                 if self.global_iter % self.save_step == 0:
                     self.save_checkpoint("last")
@@ -123,12 +116,20 @@ class Trainer(object):
         bar.write("[done training]")
         bar.close()
 
-    def traverse(self, limit=3, inter=1, loc=-1):
+    def traverse_latent(self, limit=3, inter=1):
+        """traverse_latent
 
-        self.network_mode(train=False)
+        function to traverse latent space and generate outputs
+
+        inputs: range over which to traverse the latent space 
+                default is [-3,3], as perscribed by [2]
+        outputs: output images to make Fig. 1 and Fig. 2 in [2]
+
+        """
+
         encoder = self.net.encoder
         decoder = self.net.decoder
-        interpolation = torch.arange(-limit, limit, inter)
+        interp = torch.arange(-limit, limit, inter)
 
         r_idx = random.randint(1, len(self.data_loader.dataset))
         idx = 0
@@ -145,42 +146,44 @@ class Trainer(object):
 
         Z = {"img": img_latent, "random_img": r_img_latent, "random_z": r_z}
 
-        gifs = []
+        images = []
         for key in Z.keys():
             z_temp = Z[key]
             samples = []
             for ii in range(self.z_dim):
-                if loc != -1 and ii != loc:
-                    continue
                 z = z_temp.clone()
-                for val in interpolation:
+                for val in interp:
                     z[:, ii] = val
                     sample = torch.sigmoid(decoder(z)).data
                     samples.append(sample)
-                    gifs.append(sample)
-            samples = torch.cat(samples, dim=0).cpu
-            # could remove
-            title = "{}_latent_traversal_iter:{}".format(key, self.global_iter)
+                    images.append(sample)
+            samples = torch.cat(samples, dim=0)
 
-        if self.save_output:
-            output_dir = os.path.join(self.output_dir, str(self.global_iter))
-            os.makedirs(output_dir, exist_ok=True)
-            gifs = torch.cat(gifs)
-            gifs = gifs.view(
-                len(Z), self.z_dim, len(interpolation), self.nchan, 64, 64
-            ).transpose(1, 2)
-            for i, key in enumerate(Z.keys()):
-                for j, val in enumerate(interpolation):
-                    save_image(
-                        tensor=gifs[i][j].cpu(),
-                        filename=os.path.join(output_dir, "{}_{}.jpg".format(key, j)),
-                        nrow=self.z_dim,
-                        pad_value=1,
-                    )
+        output_dir = os.path.join(self.output_dir, str(self.global_iter))
+        os.makedirs(output_dir, exist_ok=True)
+        images = torch.cat(images)
+        images = images.view(
+            len(Z), self.z_dim, len(interp), self.nchan, 64, 64
+        ).transpose(1, 2)
+        for i, key in enumerate(Z.keys()):
+            for j, val in enumerate(interp):
+                save_image(
+                    tensor=images[i][j].cpu(),
+                    filename=os.path.join(output_dir, "{}_{}.jpg".format(key, j)),
+                    nrow=self.z_dim,
+                    pad_value=1,
+                )
 
-        self.network_mode(train=True)
+    def save_checkpoint(self, filename):
+        """save_checkpoint
 
-    def save_checkpoint(self, filename, silent=True):
+        used to save checkpoints, because not doing so is asking for trouble
+
+        inputs: filename cooresponding to data_out name from main.py
+        outputs: checkpoints specified directory
+
+        """
+
         model_states = {"net": self.net.state_dict()}
         optim_states = {"optim": self.optim.state_dict()}
 
@@ -193,24 +196,24 @@ class Trainer(object):
         file_path = os.path.join(self.ckpt_dir, filename)
         with open(file_path, mode="wb+") as f:
             torch.save(states, f)
-        if not silent:
-            print(
-                "=> saved checkpoint '{}' (iter {})".format(file_path, self.global_iter)
-            )
 
     def load_checkpoint(self, filename):
+        """load_checkpoint
+
+        loads checkpoints cooresdponding to run name
+        inputs: name of file, corresponding to data_out name from main.py
+        outputs: loads checkpoints, resumes training
+
+        """
+
         file_path = os.path.join(self.ckpt_dir, filename)
         if os.path.isfile(file_path):
             checkpoint = torch.load(file_path)
-            self.global_iter = checkpoint["iter"]
 
+            self.global_iter = checkpoint["iter"]
             self.net.load_state_dict(checkpoint["model_states"]["net"])
             self.optim.load_state_dict(checkpoint["optim_states"]["optim"])
-            print(
-                "=> loaded checkpoint '{} (iter {})'".format(
-                    file_path, self.global_iter
-                )
-            )
+            print("=> loaded ckpt '{} (iter {})'".format(file_path, self.global_iter))
         else:
-            print("=> no checkpoint found at '{}'".format(file_path))
+            print("=> no ckpt at '{}'".format(file_path))
 

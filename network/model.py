@@ -13,7 +13,9 @@ import torch.nn.init as init
 def reparam(mu, logvar):
     """reparametization 'trick'
     
-    reparametizes 
+    allows optimization through sampling process.
+    inputs: mean and variance
+    outputs: random var with perscribed mean and noisy variance terms
 
     """
 
@@ -25,6 +27,7 @@ def reparam(mu, logvar):
 
 class View(nn.Module):
     """View
+
     acts like tf/np reshape
 
     """
@@ -41,6 +44,7 @@ class betaVAE(nn.Module):
     """betaVAE
 
     class used to setup the betaVAE architecture 
+
     """
 
     def __init__(self, z_dim=10, nchan=1):
@@ -80,6 +84,13 @@ class betaVAE(nn.Module):
         )
 
     def forward(self, x):
+        """forward
+
+        propgates input through the network
+        inputs: sample input
+        output: reconstructed input, mu and var from the latent space
+
+        """
         dist = self.encode(x)
         mu = dist[:, : self.z_dim]
         logvar = dist[:, self.z_dim :]

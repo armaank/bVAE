@@ -17,6 +17,10 @@ from torchvision.utils import make_grid, save_image
 def r_loss(x, x_recon):
     """r_loss
 
+    computes reconstruction loss described in [2]
+    inputs: x, x_recon
+    outputs: loss 
+
     """
 
     batch_size = x.size(0)
@@ -29,7 +33,9 @@ def r_loss(x, x_recon):
 def kl_div(mu, logvar):
     """kl_div
 
-
+    computes the kullback leibler divergence as part of the loss fcn
+    inputs: mean and variance
+    outputs: kld
     """
 
     if mu.data.ndimension() == 4:

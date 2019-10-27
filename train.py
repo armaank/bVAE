@@ -57,7 +57,7 @@ class Trainer(object):
             os.makedirs(self.ckpt_dir, exist_ok=True)
         self.ckpt_name = args.ckpt_name
         if self.ckpt_name is not None:
-            self.load_checkpoint(self.ckpt_name)
+            self.load_ckpt(self.ckpt_name)
 
         self.output_dir = os.path.join(args.output_dir, args.data_out)
         if not os.path.exists(self.output_dir):
@@ -103,11 +103,11 @@ class Trainer(object):
                     self.traverse_latent()
 
                 if self.global_iter % self.save_step == 0:
-                    self.save_checkpoint("last")
+                    self.save_ckpt("last")
                     bar.write("Saved checkpoint(iter:{})".format(self.global_iter))
 
                 if self.global_iter % self.save_step == 0:
-                    self.save_checkpoint(str(self.global_iter))
+                    self.save_ckpt(str(self.global_iter))
 
                 if self.global_iter >= self.n_iter:
                     out = True
@@ -174,7 +174,7 @@ class Trainer(object):
                     pad_value=1,
                 )
 
-    def save_checkpoint(self, filename):
+    def save_ckpt(self, filename):
         """save_checkpoint
 
         used to save checkpoints, because not doing so is asking for trouble
@@ -197,7 +197,7 @@ class Trainer(object):
         with open(file_path, mode="wb+") as f:
             torch.save(states, f)
 
-    def load_checkpoint(self, filename):
+    def load_ckpt(self, filename):
         """load_checkpoint
 
         loads checkpoints cooresdponding to run name

@@ -1,58 +1,56 @@
-This is BibTeX, Version 0.99d (TeX Live 2019/Arch Linux)
+This is BibTeX, Version 0.99d (TeX Live 2017/Debian)
 Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: kohli_ece471_midterm.aux
 The style file: IEEEtran.bst
-Reallocated singl_function (elt_size=8) to 100 items from 50.
-Reallocated singl_function (elt_size=8) to 100 items from 50.
-Reallocated singl_function (elt_size=8) to 100 items from 50.
-Reallocated wiz_functions (elt_size=8) to 6000 items from 3000.
-Reallocated singl_function (elt_size=8) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: bib.bib
-Warning--I didn't find a database entry for "gpip"
 -- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
 -- http://www.michaelshell.org/tex/ieeetran/bibtex/
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
 
 Done.
-You've used 0 entries,
+You've used 3 entries,
             4087 wiz_defined-function locations,
-            822 strings with 7316 characters,
-and the built_in function-call counts, 104 in all, are:
-= -- 0
-> -- 0
-< -- 0
-+ -- 0
-- -- 0
-* -- 19
-:= -- 27
-add.period$ -- 0
-call.type$ -- 0
-change.case$ -- 0
+            838 strings with 7858 characters,
+and the built_in function-call counts, 1817 in all, are:
+= -- 118
+> -- 71
+< -- 2
++ -- 34
+- -- 17
+* -- 102
+:= -- 297
+add.period$ -- 6
+call.type$ -- 3
+change.case$ -- 3
 chr.to.int$ -- 0
-cite$ -- 0
-duplicate$ -- 0
-empty$ -- 1
-format.name$ -- 0
-if$ -- 3
+cite$ -- 3
+duplicate$ -- 140
+empty$ -- 155
+format.name$ -- 20
+if$ -- 395
 int.to.chr$ -- 0
-int.to.str$ -- 0
-missing$ -- 0
-newline$ -- 23
-num.names$ -- 0
-pop$ -- 0
+int.to.str$ -- 3
+missing$ -- 33
+newline$ -- 32
+num.names$ -- 3
+pop$ -- 88
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 1
+skip$ -- 131
 stack$ -- 0
-substring$ -- 0
-swap$ -- 0
-text.length$ -- 0
+substring$ -- 3
+swap$ -- 90
+text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 0
+type$ -- 3
 warning$ -- 0
-while$ -- 0
-width$ -- 0
-write$ -- 22
-(There was 1 warning)
+while$ -- 3
+width$ -- 4
+write$ -- 48

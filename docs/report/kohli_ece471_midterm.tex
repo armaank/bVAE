@@ -7,16 +7,12 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{listings}
+\usepackage{hyperref}
 \lstset
 { %Formatting for code in appendix
-    basicstyle=\footnotesize,
     numbers=left,
-    stepnumber=1,
-    showstringspaces=false,
-    tabsize=1,
-    breaklines=true,
-    breakatwhitespace=false,
 }
+
 \usepackage[square,sort,comma,numbers]{natbib}
 \title{ece471 - Midterm}
 \author{Armaan Kohli}
@@ -33,21 +29,142 @@
 \raggedright
 \raggedbottom
 \section{Remarks}
-\paragraph{} \cite{gpip}
+\paragraph{} We attempted to replicate results from \textit{$\beta$-VAE: Learning Basic Visual Concepts with a Constrained Variational Framework}\cite{bvae}. Published in 2017 at ICLR, the team at Google DeepMind demonstrated that variational autoencoders, first described in \cite{vae}, had the ability to produce `disentangled' representations by augmenting the loss function described in \citep{vae} with an additional hyper-parameter, $\beta$. In a follow-up publication, \cite{bvae-dis}, DeepMind explains this effect further. Effectively, the parameter $\beta$ finds latent components which make different contributions to the log-likelihood term of the objective function in \citep{vae}, and that latent components correspond to features that are qualitatively different.
 
-\section{Results}
+\paragraph{} In their publication, DeepMind illustrates the effectiveness of their network on the 3DChairs and CelebA datasets. We have attempted to replicate Fig. 1 and Fig. 2 of \citep{bvae} for the $\beta$-VAE in order to demonstrate that our implementation based on their paper faithfully replicates their results. 
+
+\paragraph{} There were several parameters needed for implementation that the paper neglected to mention. The number of gradient steps nor were their compute resources stated in the paper. So, we opted to use a gpu and train for as long as possible, saving checkpoints and outputs along the way. They also didn't mention the dimensionality of the latent space, nor how they sampled or traversed the latent space to generate Fig. 1 and Fig. 2 in \citep{bvae}. As such, we tried two different methods to replicate their results: We took random samples from a 7 dimensional latent space and we took the first n samples from the same latent space. We found that these unknown parameters had a significant impact on our results. 
+
+
+\paragraph{} To see the full codebase, please visit \underline{\href{https://github.com/armaank/bVAE}{github.com/armaank/bVAE}}. See the \textit{Code} section for selected code snippets. We elected to implement our version of $\beta$-VAE in pytorch, for the learning experience and to cut time spent making a dataloader (since we were working with multiple datasets) in tensorflow, which by contrast, is easily done in pytorch. The CelebA dataset was trained using Ali's computer (GTX2070), and the 3DChairs dataset was trained on a P100 on a Google Cloud VM instance. 
+ 
+\clearpage
+\section{Results \& Discussion}
 
 
 \clearpage
 \section{Code}
+\paragraph{} Here is a code snippet showing the model architecture we replicated from the appendix of \cite{bvae}.
 \begin{lstlisting}[language=Python]
+"""
+model.py
+
+contains network architecture for beta vae, as described in the appendix of [2]
+
+"""
+import torch
+import torch.nn as nn
+from torch.autograd import Variable
+import torch.nn.init as init
+
+
+def reparam(mu, logvar):
+    """reparametization 'trick'
+    
+    allows optimization through sampling process.
+    inputs: mean and variance
+    outputs: random var with perscribed mean and noisy variance terms
+
+    """
+
+    std = logvar.div(2).exp()
+    eps = Variable(std.data.new(std.size()).normal_())
+
+    return mu + std * eps
+
+
+class View(nn.Module):
+    """View
+
+    acts like tf/np reshape
+
+    """
+
+    def __init__(self, size):
+        super(View, self).__init__()
+        self.size = size
+
+    def forward(self, tensor):
+        return tensor.view(self.size)
+
+
+class betaVAE(nn.Module):
+    """betaVAE
+
+    class used to setup the betaVAE architecture 
+
+    """
+
+    def __init__(self, z_dim=10, nchan=1):
+        super(betaVAE, self).__init__()
+        self.z_dim = z_dim
+
+        self.encoder = nn.Sequential(
+            nn.Conv2d(nchan, 32, 4, 2, 1),
+            nn.ReLU(True),
+            nn.Conv2d(32, 32, 4, 2, 1),
+            nn.ReLU(True),
+            nn.Conv2d(32, 32, 4, 2, 1),
+            nn.ReLU(True),
+            nn.Conv2d(32, 32, 4, 2, 1),
+            nn.ReLU(True),
+            View((-1, 32 * 4 * 4)),
+            nn.Linear(32 * 4 * 4, 256),
+            nn.ReLU(True),
+            nn.Linear(256, 256),
+            nn.ReLU(True),
+            nn.Linear(256, z_dim * 2),
+        )
+
+        self.decoder = nn.Sequential(
+            nn.Linear(z_dim, 256),
+            View((-1, 256, 1, 1)),
+            nn.ReLU(True),
+            nn.ConvTranspose2d(256, 64, 4),
+            nn.ReLU(True),
+            nn.ConvTranspose2d(64, 64, 4, 2, 1),
+            nn.ReLU(True),
+            nn.ConvTranspose2d(64, 32, 4, 2, 1),
+            nn.ReLU(True),
+            nn.ConvTranspose2d(32, 32, 4, 2, 1),
+            nn.ReLU(True),
+            nn.ConvTranspose2d(32, nchan, 4, 2, 1),
+        )
+
+    def forward(self, x):
+        """forward
+
+        propgates input through the network
+        inputs: sample input
+        output: reconstructed input, mu and var from the latent space
+
+        """
+        dist = self.encode(x)
+        mu = dist[:, : self.z_dim]
+        logvar = dist[:, self.z_dim :]
+        z = reparam(mu, logvar)
+        x_recon = self.decode(z)
+
+        return x_recon, mu, logvar
+
+    def encode(self, x):
+        return self.encoder(x)
+
+    def decode(self, z):
+        return self.decoder(z)
+
+
+if __name__ == "__main__":
+    pass
 
 
 \end{lstlisting}
-
+\clearpage
 \bibliography{bib}{}
 \bibliographystyle{IEEEtran}
+\section{Credits}
+Ali, for his friendship and gpu :)
 \clearpage
-
 \end{fullwidth}
+
 \end{document}

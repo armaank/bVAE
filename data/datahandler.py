@@ -17,7 +17,7 @@ from torchvision import transforms
 
 class bvaeImageFolder(ImageFolder):
     """bvaeImageFolder
-    
+
     class to manage indexing into datasets
 
     """
@@ -49,7 +49,7 @@ def getDataset(args):
     image_size = args.image_size
     num_workers = args.n_workers
 
-    assert image_size == 64  # only supporting image size of 64
+    assert image_size == 64
 
     if name.lower() == "3dchairs":
         root = os.path.join(data_dir, "3DChairs")

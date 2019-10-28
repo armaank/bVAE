@@ -47,7 +47,7 @@ class betaVAE(nn.Module):
 
     """
 
-    def __init__(self, z_dim=10, nchan=1):
+    def __init__(self, z_dim=7, nchan=3):
         super(betaVAE, self).__init__()
         self.z_dim = z_dim
 

@@ -4,8 +4,6 @@ losses.py
 methods used to form the objective function described in [2]
 
 """
-import os
-
 import torch
 
 import torch.optim as optim

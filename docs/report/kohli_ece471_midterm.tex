@@ -8,6 +8,7 @@
 \usepackage{amssymb}
 \usepackage{listings}
 \usepackage{hyperref}
+\usepackage{bm}
 \lstset
 { %Formatting for code in appendix
     numbers=left,
@@ -29,14 +30,18 @@
 \raggedright
 \raggedbottom
 \section{Remarks}
-\paragraph{} We attempted to replicate results from \textit{$\beta$-VAE: Learning Basic Visual Concepts with a Constrained Variational Framework}\cite{bvae}. Published in 2017 at ICLR, the team at Google DeepMind demonstrated that variational autoencoders, first described in \cite{vae}, had the ability to produce `disentangled' representations by augmenting the loss function described in \citep{vae} with an additional hyper-parameter, $\beta$. In a follow-up publication, \cite{bvae-dis}, DeepMind explains this effect further. Effectively, the parameter $\beta$ finds latent components which make different contributions to the log-likelihood term of the objective function in \citep{vae}, and that latent components correspond to features that are qualitatively different.
+\paragraph{} We attempted to replicate results from \textit{$\beta$-VAE: Learning Basic Visual Concepts with a Constrained Variational Framework}\cite{bvae}. Published in 2017 at ICLR, the team at Google DeepMind demonstrated that variational autoencoders, first described in \cite{vae}, had the ability to produce `disentangled' representations by augmenting the loss function described in \citep{vae} with an additional hyper-parameter, $\beta$. In a follow-up publication, \cite{bvae-dis}, DeepMind explains this phenomena further. Effectively, the parameter $\beta$ finds latent components which make different contributions to the log-likelihood term of the objective function in \citep{vae}, and that latent components correspond to features that are qualitatively different. Below is the augmented ELBO objective presented in \citep{bvae} for reference.
+\begin{equation}
+\mathcal{F}(\theta,\phi,\beta;\bm{x},\bm{z}) \geq \mathcal{L}(\theta,\phi;\bm{x},\bm{z}) = \mathbb{E}_{q_{\phi}(z|x)}[log_{p_{\theta}}(\bm{x}|\bm{z})]-\beta D_{KL}(q_{\phi}(\bm{z}|\bm{x})||p(\bm{z}))
+\end{equation}
+
 
 \paragraph{} In their publication, DeepMind illustrates the effectiveness of their network on the 3DChairs and CelebA datasets. We have attempted to replicate Fig. 1 and Fig. 2 of \citep{bvae} for the $\beta$-VAE in order to demonstrate that our implementation based on their paper faithfully replicates their results. 
 
-\paragraph{} There were several parameters needed for implementation that the paper neglected to mention. The number of gradient steps nor were their compute resources stated in the paper. So, we opted to use a gpu and train for as long as possible, saving checkpoints and outputs along the way. They also didn't mention the dimensionality of the latent space, nor how they sampled or traversed the latent space to generate Fig. 1 and Fig. 2 in \citep{bvae}. As such, we tried two different methods to replicate their results: We took random samples from a 7 dimensional latent space and we took the first n samples from the same latent space. We found that these unknown parameters had a significant impact on our results. 
+\paragraph{} There were several parameters needed for implementation that the paper neglected to mention. The authors didn't state their batch size, training time/gradient steps or compute resources used. So, we opted to use a gpu and train for as long as possible, saving checkpoints and outputs along the way. They also didn't mention the dimensionality of the latent space, nor how they sampled or traversed the latent space to generate Fig. 1 and Fig. 2 in \citep{bvae}. As such, we tried two different methods to replicate their results: We took random samples from a 7 dimensional latent space and we took the first n samples from the same latent space. We found that these unknown parameters had a significant impact on our results. 
 
 
-\paragraph{} To see the full codebase, please visit \underline{\href{https://github.com/armaank/bVAE}{github.com/armaank/bVAE}}. See the \textit{Code} section for selected code snippets. We elected to implement our version of $\beta$-VAE in pytorch, for the learning experience and to cut time spent making a dataloader (since we were working with multiple datasets) in tensorflow, which by contrast, is easily done in pytorch. The CelebA dataset was trained using Ali's computer (GTX2070), and the 3DChairs dataset was trained on a P100 on a Google Cloud VM instance. 
+\paragraph{} To see the full codebase, please visit \underline{\href{https://github.com/armaank/bVAE}{github.com/armaank/bVAE}}. See the \textit{Code} section for selected code snippets. We elected to implement our version of $\beta$-VAE in pytorch, for the learning experience and to cut time spent making a dataloader (since we were working with multiple datasets) in tensorflow, which by contrast, is easily done in pytorch. The CelebA dataset was trained using Ali's computer (GTX2070), and the 3DChairs dataset was trained on both a P100 on a Google Cloud VM instance and Ali's computer. 
  
 \clearpage
 \section{Results \& Discussion}

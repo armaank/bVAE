@@ -144,7 +144,7 @@ class Trainer(object):
 
         r_z = Variable(cuda(torch.rand(1, self.z_dim), self.use_cuda), volatile=True)
 
-        Z = {"img": img_latent, "random_img": r_img_latent, "random_z": r_z}
+        Z = {"image": img_latent, "random_image": r_img_latent, "random_z": r_z}
 
         images = []
         for key in Z.keys():
@@ -171,7 +171,6 @@ class Trainer(object):
                     tensor=images[i][j].cpu(),
                     filename=os.path.join(output_dir, "{}_{}.jpg".format(key, j)),
                     nrow=self.z_dim,
-                    pad_value=1,
                 )
 
     def save_ckpt(self, filename):

@@ -1,7 +1,7 @@
 """
 model.py
 
-contains network architecture for beta vae, as described in the appendix of [2]
+contains network architecture for beta vae, as described in the appendix of [1]
 
 """
 import torch

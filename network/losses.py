@@ -1,7 +1,7 @@
 """
 losses.py
 
-methods used to form the objective function described in [2]
+methods used to form the objective function described in [1]
 
 """
 import torch
@@ -15,7 +15,7 @@ from torchvision.utils import make_grid, save_image
 def r_loss(x, x_recon):
     """r_loss
 
-    computes reconstruction loss described in [2]
+    computes reconstruction loss described in [1]
     inputs: x, x_recon
     outputs: loss 
 

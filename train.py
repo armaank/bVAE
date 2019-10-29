@@ -123,7 +123,7 @@ class Trainer(object):
 
         inputs: range over which to traverse the latent space 
                 default is [-3,3], as perscribed by [2]
-        outputs: output images to make Fig. 1 and Fig. 2 in [2]
+        outputs: output images to make Fig. 1 and Fig. 2 in [1]
 
         """
 

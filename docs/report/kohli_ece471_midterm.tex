@@ -36,7 +36,7 @@
 \end{equation}
 
 
-\paragraph{} In their publication, DeepMind illustrates the effectiveness of their network on the 3DChairs and CelebA datasets. We have attempted to replicate Fig. 1 and Fig. 2 of \citep{bvae} for the $\beta$-VAE in order to demonstrate that our implementation based on their paper faithfully replicates their results. 
+\paragraph{} In their publication, DeepMind illustrates the effectiveness of their network on the 3DChairs and CelebA datasets. We have attempted to replicate Fig. 1 and Fig. 2 of \citep{bvae} for the $\beta$-VAE in order to demonstrate that our implementation of the network can faithfully replicate their results. 
 
 \paragraph{} There were several parameters needed for implementation that the paper neglected to mention. The authors didn't state their batch size, training time/gradient steps or compute resources used. So, we opted to use a gpu and train for as long as possible, saving checkpoints and outputs along the way. They also didn't mention the dimensionality of the latent space, nor how they sampled or traversed the latent space to generate Fig. 1 and Fig. 2 in \citep{bvae}. As such, we tried two different methods to replicate their results: We took random samples from a 7 dimensional latent space and we took the first n samples from the same latent space. We found that these unknown parameters had a significant impact on our results. 
 
@@ -46,7 +46,7 @@
 \clearpage
 \section{Results \& Discussion}
 \subsection{3DChairs}
-\paragraph{} After training for 500,000k gradient steps (amounting to approximately 30 hours of training time), we have the following results for the 3DChairs Dataset
+\paragraph{} After training for 500,000k gradient steps (amounting to approximately 50 hours of training time), we have the following results for the 3DChairs Dataset
 \begin{figure}
 \centering
 \label{azi}
@@ -83,7 +83,7 @@
 \includegraphics[scale=.2]{bad.png}
 \caption{Poorly generated faces} 
 \end{figure}
-\paragraph{} We suspect that this occured failure occured primarily because of the choice of $\beta$. In \cite{bvae}, DeepMind reports that the faces in Fig. \ref{good} were generated using $\beta = 250$, substantially more than the beta used in the successful 3dChairs experiment ($\beta=4$). In \cite{bvae-dis}, the follow-up paper, they explain that setting beta \textit{too} high can have adverse effects, and recomend adding an additional hyperparameter to regulate the loss furthur. Additionally, other implementaitons of $\beta$-VAE were able to successfully generate results comprable to Fig. \ref{good} using small $\beta$ values, such as $\beta=4$ or $5$. We also don't know under what training conditions DeepMind was able to generate the faces in \ref{good}, which can certianly play a factor in the quality of the results. 
+\paragraph{} We suspect that this occured failure occured primarily because of the choice of $\beta$. In \cite{bvae}, DeepMind reports that the faces in Fig. \ref{good} were generated using $\beta = 250$, substantially more than the $\beta$ used in the successful 3dChairs experiment ($\beta=4$). In \cite{bvae-dis}, the follow-up paper, they explain that setting beta too high can have adverse effects, and recomend adding an additional hyperparameter to regulate the loss furthur. Additionally, other implementaitons of $\beta$-VAE we found online were able to successfully generate results comprable to Fig. \ref{good} using small $\beta$ values, such as $\beta=4$ or $5$. We also don't know under what training conditions DeepMind was able to generate the faces in \ref{good}, which can certianly play a factor in the quality of the results. 
 \begin{figure}
 \centering
 \label{good}

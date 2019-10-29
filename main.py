@@ -11,6 +11,8 @@ import torch
 
 from train import Trainer
 
+torch.cuda.set_device(0)
+
 torch.backends.cudnn.enabled = True
 torch.backends.cudnn.benchmark = True
 

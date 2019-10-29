@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.10.17)  28 OCT 2019 21:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.10.17)  28 OCT 2019 21:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -977,42 +977,32 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 221.
 (./kohli_ece471_midterm.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 221.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 221.
-
-
-Package rerunfilecheck Warning: File `kohli_ece471_midterm.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `kohli_ece471_midterm.out':
-(rerunfilecheck)             Before: 12905A1F10644D373C584DB784708F8E;538
-(rerunfilecheck)             After:  09C316F8157A9B35050A0DFFFAE08792;538.
+Package rerunfilecheck Info: File `kohli_ece471_midterm.out' has not changed.
+(rerunfilecheck)             Checksum: 09C316F8157A9B35050A0DFFFAE08792;538.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 221.
  ) 
 Here is how much of TeX's memory you used:
- 17040 strings out of 494880
- 246128 string characters out of 6179600
+ 17029 strings out of 494880
+ 246032 string characters out of 6179600
  409688 words of memory out of 5000000
  19728 multiletter control sequences out of 15000+600000
- 90232 words of font info for 258 fonts, out of 8000000 for 9000
+ 89670 words of font info for 250 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  45i,14n,74p,929b,2193s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{section*.19} has been referenced but does not exi
-st, replaced by a fixed one
-
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fo
-nts/type1/public/mathpazo/fplmbb.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/mathpazo/fplmri.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/f
-pl/fplrc8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/fpl/fplrij8a.p
-fb></usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/urw/palatino/uplbi8a.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/share/texlive/texmf-dist/f
-onts/type1/urw/palatino/uplri8a.pfb>
-Output written on kohli_ece471_midterm.pdf (8 pages, 1705200 bytes).
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/mathpazo/fplmbb.pfb></usr/share/texlive/texmf-dist/fonts/typ
+e1/public/mathpazo/fplmri.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/fpl/fplrc8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/fpl/fplrij8a
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/urw/palatino/uplbi8a.pfb></usr/share/texliv
+e/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/urw/palatino/uplri8a.pfb>
+Output written on kohli_ece471_midterm.pdf (8 pages, 1705140 bytes).
 PDF statistics:
- 298 PDF objects out of 1000 (max. 8388607)
- 263 compressed objects within 3 object streams
- 144 named destinations out of 1000 (max. 500000)
+ 297 PDF objects out of 1000 (max. 8388607)
+ 262 compressed objects within 3 object streams
+ 143 named destinations out of 1000 (max. 500000)
  60487 words of extra memory for PDF output out of 61914 (max. 10000000)
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.10.17)  28 OCT 2019 21:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.10.17)  22 NOV 2019 12:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -969,23 +969,25 @@ LaTeX Font Info:    Try loading font information for TS1+pplj on input line 129
 File: ts1pplj.fd 2004/09/06 font definitions for TS1/pplj.
 ) [6
 
-] [7]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 221.
- [8]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 221.
+] [7] [8]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 266.
 
-(./kohli_ece471_midterm.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 221.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 221.
+[9
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 266.
+ (./kohli_ece471_midterm.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 266.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 266.
 Package rerunfilecheck Info: File `kohli_ece471_midterm.out' has not changed.
 (rerunfilecheck)             Checksum: 09C316F8157A9B35050A0DFFFAE08792;538.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 221.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 266.
  ) 
 Here is how much of TeX's memory you used:
- 17029 strings out of 494880
- 246032 string characters out of 6179600
- 409688 words of memory out of 5000000
- 19728 multiletter control sequences out of 15000+600000
+ 17115 strings out of 494880
+ 247162 string characters out of 6179600
+ 409689 words of memory out of 5000000
+ 19770 multiletter control sequences out of 15000+600000
  89670 words of font info for 250 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  45i,14n,74p,929b,2193s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -999,10 +1001,10 @@ e1/public/mathpazo/fplmri.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
 hare/texlive/texmf-dist/fonts/type1/urw/palatino/uplbi8a.pfb></usr/share/texliv
 e/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/share/texlive/texmf-dist
 /fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on kohli_ece471_midterm.pdf (8 pages, 1705140 bytes).
+Output written on kohli_ece471_midterm.pdf (9 pages, 1708663 bytes).
 PDF statistics:
- 297 PDF objects out of 1000 (max. 8388607)
- 262 compressed objects within 3 object streams
- 143 named destinations out of 1000 (max. 500000)
+ 355 PDF objects out of 1000 (max. 8388607)
+ 318 compressed objects within 4 object streams
+ 187 named destinations out of 1000 (max. 500000)
  60487 words of extra memory for PDF output out of 61914 (max. 10000000)
 
